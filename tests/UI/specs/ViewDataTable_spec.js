@@ -102,18 +102,42 @@ describe("ViewDataTableTest", function () { // TODO: should remove Test suffix f
         }, done);
     });
 
-    it("should show aggregate rows when the aggregate rows option is clicked", function (done) {
-        expect.screenshot('12_aggregate_shown').to.be.capture(function (page) {
-            page.click('.dropdownConfigureIcon');
-            page.click('.dataTableIncludeAggregateRows');
-            page.mouseMove({x: -10, y: -10}); // make sure no row is highlighted
-        }, done);
-    });
-
     it("should show dimensions separately when option is clicked", function (done) {
         expect.screenshot('dimension_columns').to.be.capture(function (page) {
             page.click('.dropdownConfigureIcon');
             page.click('.dataTableShowDimensions');
+            page.mouseMove({x: -10, y: -10}); // make sure no row is highlighted
+        }, done);
+    });
+
+    it("should search in subtable dimensions even when they are displayed seperately", function (done) {
+        expect.screenshot('dimension_search').to.be.capture(function (page) {
+            page.click('.dataTableAction.searchAction');
+            page.sendKeys('.searchAction .dataTableSearchInput', 'Bing');
+            page.click('.searchAction .icon-search');
+        }, done);
+    });
+
+    it("search should still work when showing dimensions combined again", function (done) {
+        expect.screenshot('flatten_search').to.be.capture(function (page) {
+            page.click('.dropdownConfigureIcon');
+            page.click('.dataTableShowDimensions');
+            page.mouseMove({x: -10, y: -10}); // make sure no row is highlighted
+        }, done);
+    });
+
+    it("search should still work when switching to back to separete dimensions", function (done) {
+        expect.screenshot('dimension_search').to.be.capture(function (page) {
+            page.click('.dropdownConfigureIcon');
+            page.click('.dataTableShowDimensions');
+            page.mouseMove({x: -10, y: -10}); // make sure no row is highlighted
+        }, done);
+    });
+
+    it("should show aggregate rows when the aggregate rows option is clicked", function (done) {
+        expect.screenshot('12_aggregate_shown').to.be.capture(function (page) {
+            page.click('.dropdownConfigureIcon');
+            page.click('.dataTableIncludeAggregateRows');
             page.mouseMove({x: -10, y: -10}); // make sure no row is highlighted
         }, done);
     });
